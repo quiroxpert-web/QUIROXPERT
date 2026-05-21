@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuiroXpert · Alberto Serrano · Aspe</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --c: #00C6D7;
+  --cd: #0098AA;
+  --cl: #E0F9FC;
+  --clm: #B2EEF4;
+  --dark: #0B1D26;
+  --mid: #122636;
+  --text: #1C2B35;
+  --muted: #6B8590;
+  --white: #FFFFFF;
+  --off: #F4FBFC;
+  --gray: #F0F4F5;
+  --gold: #FBBC04;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Outfit',sans-serif;color:var(--text);overflow-x:hidden;background:#fff;}
+
+/* ─── NAV ─────────────────────────── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:9999;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 6%;
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(0,198,215,0.15);
+  transition:all .35s ease;
+}
+#nav.solid{background:rgba(255,255,255,0.97);box-shadow:0 4px 40px rgba(0,0,0,0.07);}
+.nav-logo img{height:45px;display:block;width:auto;}
+.nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+.nav-links a{text-decoration:none;color:var(--text);font-weight:500;font-size:14.5px;letter-spacing:.2px;transition:color .2s;}
+.nav-links a:hover{color:var(--c);}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--c);color:#fff;
+  padding:11px 26px;border-radius:100px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  transition:all .3s;white-space:nowrap;
+}
+.nav-cta:hover{background:var(--cd);transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,198,215,0.35);}
+.nav-cta i{font-size:13px;}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
+.burger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s;}
+
+/* ─── HERO CON VÍDEO DE FONDO ─────── */
+#hero{
+  min-height:100vh;
+  background:var(--dark);
+  display:flex;align-items:center;
+  padding:120px 6% 80px;
+  position:relative;overflow:hidden;
+}
+.hero-video-bg {
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  object-fit:cover;opacity:0.15;z-index:1;pointer-events:none;
+}
+.hero-blob{
+  position:absolute;border-radius:50%;
+  filter:blur(90px);pointer-events:none;z-index:2;
+}
+.hb1{width:700px;height:700px;background:var(--c);opacity:.18;top:-250px;right:-200px;animation:float1 8s ease-in-out infinite;}
+.hb2{width:500px;height:500px;background:#006B7A;opacity:.22;bottom:-150px;left:-150px;animation:float2 10s ease-in-out infinite;}
+@keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,-20px) scale(1.05);}}
+@keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-20px,25px) scale(1.08);}}
+
+.hero-inner{position:relative;z-index:3;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;width:100%;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(0,198,215,0.12);border:1px solid rgba(0,198,215,0.35);
+  color:var(--c);padding:8px 18px;border-radius:100px;
+  font-size:13px;font-weight:600;letter-spacing:.5px;margin-bottom:30px;
+}
+.hero-dot{width:8px;height:8px;background:var(--c);border-radius:50%;animation:pdot 2s ease infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(1.5);}}
+#hero h1{
+  font-size:clamp(40px,5.5vw,70px);
+  font-weight:900;color:#fff;line-height:1.08;
+  margin-bottom:22px;letter-spacing:-1px;
+}
+#hero h1 .hl{
+  color:transparent;
+  background:linear-gradient(90deg,var(--c),#7EE8F2);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+#hero p{font-size:17px;color:rgba(255,255,255,.65);line-height:1.75;margin-bottom:42px;max-width:480px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:60px;}
+.btn-fill{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--c);color:#fff;
+  padding:15px 34px;border-radius:100px;
+  font-weight:700;font-size:15px;text-decoration:none;
+  transition:all .3s;
+}
+.btn-fill:hover{background:var(--cd);transform:translateY(-3px);box-shadow:0 20px 50px rgba(0,198,215,.35);}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:9px;
+  border:2px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);
+  padding:13px 32px;border-radius:100px;
+  font-weight:600;font-size:15px;text-decoration:none;
+  transition:all .3s;
+}
+.btn-outline:hover{border-color:var(--c);color:var(--c);}
+.hero-stats{display:flex;gap:40px;}
+.stat-val{font-size:38px;font-weight:900;color:var(--c);line-height:1;}
+.stat-lab{font-size:12.5px;color:rgba(255,255,255,.45);margin-top:4px;font-weight:500;}
+
+.hero-right{display:flex;justify-content:center;align-items:center;}
+.hero-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(0,198,215,.2);
+  backdrop-filter:blur(20px);
+  border-radius:32px;padding:40px;
+  display:flex;flex-direction:column;gap:20px;
+  min-width:320px;
+}
+.hero-card-logo{display:flex;justify-content:center;margin-bottom:10px;}
+.hero-card-logo img{height:90px;width:auto;}
+.hc-item{display:flex;align-items:center;gap:14px;padding:16px;background:rgba(0,198,215,.07);border-radius:16px;}
+.hc-icon{width:42px;height:42px;border-radius:12px;background:var(--c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0;}
+.hc-title{font-size:13px;color:rgba(255,255,255,.5);font-weight:500;}
+.hc-val{font-size:15px;color:#fff;font-weight:700;margin-top:2px;}
+
+/* ─── SECTION BASE ────────────────── */
+.sec{padding:110px 6%;}
+.sec-inner{max-width:1200px;margin:0 auto;}
+.tag{font-size:12px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:3px;margin-bottom:14px;}
+.sec-title{font-size:clamp(28px,3.8vw,50px);font-weight:900;color:var(--dark);line-height:1.15;margin-bottom:16px;letter-spacing:-.5px;}
+.sec-sub{font-size:16.5px;color:var(--muted);line-height:1.75;max-width:580px;}
+.title-white{color:#fff;}
+
+/* ─── SOBRE MÍ CON VÍDEO LOCAL ────── */
+#sobre{background:var(--white);}
+.about-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:80px;align-items:center;margin-top:70px;}
+.about-visual{position:relative;}
+.about-img-wrap{
+  border-radius:40px;overflow:hidden;
+  aspect-ratio:4/5;
+  background:var(--dark);
+  position:relative;
+}
+.about-img-wrap video{width:100%;height:100%;object-fit:cover;}
+.about-float{
+  position:absolute;bottom:-24px;right:-24px;
+  background:linear-gradient(135deg,var(--c),var(--cd));
+  color:#fff;border-radius:24px;padding:22px 28px;
+  font-weight:700;font-size:13px;line-height:1.5;
+  box-shadow:0 24px 50px rgba(0,198,215,.35);
+  text-align:center;
+}
+.about-float strong{font-size:36px;display:block;font-weight:900;line-height:1;}
+.about-content p{font-size:15.5px;color:#4a6370;line-height:1.85;margin-bottom:18px;}
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;}
+.pill{
+  background:var(--cl);color:var(--cd);
+  padding:8px 18px;border-radius:100px;
+  font-size:13.5px;font-weight:600;
+  transition:all .2s;cursor:default;
+}
+.pill:hover{background:var(--c);color:#fff;transform:translateY(-2px);}
+
+/* ─── TRATAMIENTOS ────────────────── */
+#servicios{background:var(--off);}
+.services-intro{text-align:center;margin-bottom:70px;}
+.services-intro .sec-sub{margin:0 auto;}
+.svcs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.svc{
+  background:#fff;border-radius:28px;padding:38px 32px;
+  transition:all .4s cubic-bezier(.175,.885,.32,1.275);
+  border:2px solid transparent;position:relative;overflow:hidden;
+  cursor:default;
+}
+.svc:before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--c),#7EE8F2);
+  transform:scaleX(0);transform-origin:left;transition:.4s;
+  border-radius:28px 28px 0 0;
+}
+.svc:hover{transform:translateY(-10px);border-color:var(--clm);box-shadow:0 30px 80px rgba(0,198,215,.13);}
+.svc:hover:before{transform:scaleX(1);}
+.svc-emoji{font-size:40px;margin-bottom:22px;display:block;}
+.svc h3{font-size:19px;font-weight:800;color:var(--dark);margin-bottom:12px;}
+.svc p{font-size:14px;color:var(--muted);line-height:1.75;}
+
+/* ─── INSTAGRAM DE @QUIROXPERT REAL ── */
+#feed{background:var(--dark);padding:110px 6%;}
+.feed-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:50px;}
+.feed-top .sec-title{color:#fff;}
+.feed-top .sec-sub{color:rgba(255,255,255,.55);}
+.btn-ig{
+  display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  color:#fff;padding:13px 30px;border-radius:100px;
+  font-weight:700;font-size:14px;text-decoration:none;
+  transition:all .3s;white-space:nowrap;
+}
+.btn-ig:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(220,39,67,.35);}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.ig-item{
+  aspect-ratio:1;border-radius:20px;overflow:hidden;
+  background:var(--mid);position:relative;cursor:pointer;
+}
+.ig-item video, .ig-item img{width:100%;height:100%;object-fit:cover;transition:.5s ease;}
+.ig-item:hover video, .ig-item:hover img{transform:scale(1.05);}
+.ig-ov{
+  position:absolute;inset:0;
+  background:rgba(11,29,38,0.85);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;transition:.35s;gap:10px;color:#fff;
+}
+.ig-item:hover .ig-ov{opacity:1;}
+.ig-ov i{font-size:32px;}
+.ig-stats{display:flex;gap:15px;font-size:14px;font-weight:600;}
+
+/* ─── RESEÑAS DE GOOGLE MAPS REALES ── */
+#reviews{background:#fff;}
+.rev-top{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px;margin-bottom:56px;}
+.google-box{
+  display:flex;align-items:center;gap:20px;
+  background:var(--off);border-radius:22px;padding:22px 30px;
+  border:1.5px solid var(--clm);
+}
+.g-logo{font-size:28px;font-weight:900;letter-spacing:-1px;}
+.g-logo span:nth-child(1){color:#4285F4;}
+.g-logo span:nth-child(2){color:#EA4335;}
+.g-logo span:nth-child(3){color:#FBBC05;}
+.g-logo span:nth-child(4){color:#4285F4;}
+.g-logo span:nth-child(5){color:#34A853;}
+.g-logo span:nth-child(6){color:#EA4335;}
+.g-divider{width:1px;height:50px;background:var(--clm);}
+.g-score{font-size:46px;font-weight:900;color:var(--dark);line-height:1;}
+.g-stars{color:#FBBC04;font-size:22px;margin:2px 0;}
+.g-count{font-size:12px;color:var(--muted);}
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.rev{background:var(--off);border-radius:26px;padding:30px;position:relative;overflow:hidden;}
+.rev:before{
+  content:'"';font-size:90px;color:var(--c);opacity:.12;
+  position:absolute;top:-15px;left:18px;line-height:1;
+  font-weight:900;pointer-events:none;
+}
+.rev-head{display:flex;align-items:center;gap:14px;margin-bottom:16px;}
+.rev-av{
+  width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:17px;flex-shrink:0;
+}
+.rev-name{font-weight:700;color:var(--dark);font-size:15px;}
+.rev-when{font-size:12px;color:var(--muted);margin-top:2px;}
+.rev-stars{color:#FBBC04;font-size:15px;margin-bottom:12px;}
+.rev-text{font-size:14px;color:#4a6370;line-height:1.8;}
+
+/* ─── CONTACTO ────────────────────── */
+#contacto{background:var(--off);}
+.contact-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:64px;align-items:start;margin-top:64px;}
+.ci{display:flex;align-items:flex-start;gap:18px;margin-bottom:30px;}
+.ci-icon{
+  width:50px;height:50px;border-radius:15px;
+  background:var(--cl);color:var(--cd);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;flex-shrink:0;
+}
+.ci-label{font-size:11px;font-weight:700;color:var(--c);text-transform:uppercase;letter-spacing:1.5px;}
+.ci-val{font-size:15.5px;font-weight:600;color:var(--dark);margin-top:3px;line-height:1.5;}
+.ci-val a{color:inherit;text-decoration:none;}
+.ci-val a:hover{color:var(--c);}
+.map-box{border-radius:28px;overflow:hidden;box-shadow:0 20px 70px rgba(0,0,0,.1);height:440px;}
+.map-box iframe{width:100%;height:100%;border:0;}
+
+/* ─── FOOTER ──────────────────────── */
+footer{background:var(--dark);padding:70px 6% 30px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:56px;max-width:1200px;margin-left:auto;margin-right:auto;}
+.foot-brand img{height:55px;margin-bottom:18px;display:block;width:auto;}
+.foot-brand p{font-size:14px;color:rgba(255,255,255,.4);line-height:1.8;max-width:280px;}
+.socials{display:flex;gap:12px;margin-top:22px;}
+.soc{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:16px;transition:all .3s;
+}
+.soc:hover{background:var(--c);color:#fff;transform:translateY(-3px);}
+.foot-col h5{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:2px;margin-bottom:18px;}
+.foot-col ul{list-style:none;}
+.foot-col li{margin-bottom:11px;}
+.foot-col a{color:rgba(255,255,255,.4);text-decoration:none;font-size:14px;transition:color .2s;}
+.foot-col a:hover{color:var(--c);}
+.foot-bottom{
+  border-top:1px solid rgba(255,255,255,.07);
+  padding-top:24px;display:flex;justify-content:space-between;align-items:center;
+  max-width:1200px;margin:0 auto;
+}
+.foot-bottom p{font-size:13px;color:rgba(255,255,255,.25);}
+
+/* ─── WHATSAPP ────────────────────── */
+.wa{
+  position:fixed;bottom:26px;right:26px;z-index:9999;
+  width:60px;height:60px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;font-size:30px;
+  box-shadow:0 8px 30px rgba(37,211,102,.4);
+  transition:transform .3s;
+}
+.wa:hover{transform:scale(1.12);}
+.wa-ring{
+  position:fixed;bottom:26px;right:26px;z-index:9998;
+  width:60px;height:60px;border-radius:50%;
+  border:2px solid #25D366;
+  animation:ring 2.5s ease infinite;
+}
+@keyframes ring{0%{transform:scale(1);opacity:.7;}100%{transform:scale(2.2);opacity:0;}}
+
+/* ─── REVEAL ANIMATIONS ───────────── */
+.reveal{opacity:0;transform:translateY(50px);transition:opacity .8s ease,transform .8s ease;}
+.reveal.up{transform:translateY(50px);}
+.reveal.left{transform:translateX(-50px);}
+.reveal.right{transform:translateX(50px);}
+.reveal.vis{opacity:1;transform:translate(0,0);}
+
+/* ─── MOBILE ──────────────────────── */
+@media(max-width:1024px){
+  .svcs{grid-template-columns:repeat(2,1fr);}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .about-grid{grid-template-columns:1fr;gap:50px;}
+  .revs{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:768px){
+  .nav-links{
+    display:none;flex-direction:column;
+    position:absolute;top:70px;left:0;right:0;
+    background:rgba(255,255,255,.98);
+    padding:20px 6%;gap:16px;
+    box-shadow:0 20px 50px rgba(0,0,0,.1);
+    border-bottom:2px solid var(--clm);
+  }
+  .nav-links.open{display:flex;}
+  .burger{display:flex;}
+  .nav-cta{font-size:12px;padding:9px 18px;}
+  .svcs{grid-template-columns:1fr;}
+  .ig-grid{grid-template-columns:repeat(2,1fr);}
+  .contact-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+  .revs{grid-template-columns:1fr;}
+  .hero-stats{gap:20px;}
+  .stat-val{font-size:30px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <img src="LOGO.png" alt="QuiroXpert logo">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Alberto</a></li>
+    <li><a href="#servicios">Tratamientos</a></li>
+    <li><a href="#feed">Instagram</a></li>
+    <li><a href="#reviews">Opiniones</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a href="https://calendly.com/quiroxpert" target="_blank" rel="noopener" class="nav-cta">
+    <i class="far fa-calendar-check"></i> Reservar Cita
+  </a>
+  <div class="burger" id="burgerBtn" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section id="hero">
+  <video class="hero-video-bg" autoplay muted loop playsinline>
+    <source src="VIDEO.mp4" type="video/mp4">
+  </video>
+  <div class="hero-blob hb1"></div>
+  <div class="hero-blob hb2"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="hero-dot"></span>
+        Aspe · Alicante · Disponible ahora
+      </div>
+      <h1>Tu cuerpo<br>merece sanar<br><span class="hl">de verdad.</span></h1>
+      <p>Osteopatía y Quiromasaje especializado por Alberto Serrano. Tratamos el origen del dolor, no solo los síntomas.</p>
+      <div class="hero-btns">
+        <a href="https://calendly.com/quiroxpert" target="_blank" rel="noopener" class="btn-fill">
+          <i class="far fa-calendar-check"></i> Reservar Cita Online
+        </a>
+        <a href="#servicios" class="btn-outline">
+          <i class="fas fa-chevron-down"></i> Ver Tratamientos
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-val">5.0★</div>
+          <div class="stat-lab">Google Maps</div>
+        </div>
+        <div>
+          <div class="stat-val">+500</div>
+          <div class="stat-lab">Pacientes tratados</div>
+        </div>
+        <div>
+          <div class="stat-val">+5</div>
+          <div class="stat-lab">Años experiencia</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-logo">
+          <img src="LOGO.png" alt="Alberto Serrano QuiroXpert">
+        </div>
+        <div class="hc-item">
+          <div class="hc-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="hc-title">Ubicación</div>
+            <div class="hc-val">Avd. Pintor Pastor Calpena 9, Aspe</div>
+          </div>
+        </div>
+        <div class="hc-item">
+          <div class="hc-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="hc-title">Teléfono</div>
+            <div class="hc-val">+34 642 49 37 39</div>
+          </div>
+        </div>
+        <div class="hc-item">
+          <div class="far fa-clock hc-icon" style="display:flex; align-items:center; justify-content:center;"></div>
+          <div>
+            <div class="hc-title">Horario</div>
+            <div class="hc-val">Lun – Vie · 9:00 – 20:00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="sec">
+  <div class="sec-inner">
+    <div class="about-grid">
+      <div class="about-visual reveal left">
+        <div class="about-img-wrap">
+          <video autoplay muted loop playsinline>
+            <source src="VIDEO.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="about-float">
+          <strong>5.0★</strong>
+          Valoración Google<br>Aspe
+        </div>
+      </div>
+      <div class="about-content reveal right">
+        <span class="tag">El Profesional</span>
+        <h2 class="sec-title">Alberto Serrano,<br>Quiromasajista<br>y Osteópata</h2>
+        <p>Trabajo en Aspe con un enfoque <strong>integral del cuerpo humano</strong>: no solo trato el síntoma, investigo el origen. Cada sesión es diferente porque cada persona lo es.</p>
+        <p>Me especializo en <strong>osteopatía deportiva</strong> — si juegas al fútbol, corres o vas al gimnasio y tienes una lesión, es mi terreno. También trabajo contracturas por estrés, patología visceral y recuperación funcional.</p>
+        <p>En redes comparto contenido educativo de calidad: desde cómo fortalecer los isquios hasta qué pasa cuando te lesionas los ligamentos cruzados. Creo que entender tu cuerpo es parte de la recuperación.</p>
+        <div class="pills">
+          <span class="pill">🦴 Osteopatía Estructural</span>
+          <span class="pill">🏅 Masaje Deportivo</span>
+          <span class="pill">💆 Quiromasaje Terapéutico</span>
+          <span class="pill">🩹 Vendaje Neuromuscular</span>
+          <span class="pill">🫁 Osteopatía Visceral</span>
+          <span class="pill">🏋️ Ejercicios Terapéuticos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios" class="sec">
+  <div class="sec-inner">
+    <div class="services-intro reveal up">
+      <span class="tag">Tratamientos</span>
+      <h2 class="sec-title">¿Qué puedo hacer por ti?</h2>
+      <p class="sec-sub">Cada sesión es única. Porque tu cuerpo, tu historial y tu ritmo de vida no son como los de nadie más.</p>
+    </div>
+    <div class="svcs">
+      <div class="svc reveal up">
+        <span class="svc-emoji">🦴</span>
+        <h3>Osteopatía Estructural</h3>
+        <p>Evaluación global del sistema musculoesquelético. Localizamos y liberamos las restricciones que generan dolor crónico, contracturas y pérdida de rango articular.</p>
+      </div>
+      <div class="svc reveal up">
+        <span class="svc-emoji">🏅</span>
+        <h3>Masaje Deportivo</h3>
+        <p>Pre-competición, recuperación post-esfuerzo y tratamiento de lesiones. Ideal para futbolistas, corredores, ciclistas y cualquier persona activa.</p>
+      </div>
+      <div class="svc reveal up">
+        <span class="svc-emoji">💆</span>
+        <h3>Quiromasaje Terapéutico</h3>
+        <p>Técnica manual profunda que libera contracturas, nódulos miofasciales y el dolor acumulado por malas posturas o estrés sostenido.</p>
+      </div>
+      <div class="svc reveal up">
+        <span class="svc-emoji">🩹</span>
+        <h3>Vendaje Neuromuscular</h3>
+        <p>Kinesiotape y vendaje funcional para dar soporte, reducir inflamación y acelerar la recuperación. Muy usado en fascia plantar y tendinitis.</p>
+      </div>
+      <div class="svc reveal up">
+        <span class="svc-emoji">🫁</span>
+        <h3>Osteopatía Visceral</h3>
+        <p>Abordaje de patologías abdominales desde la terapia manual. Mejora la movilidad visceral y trata dolores referidos de origen orgánico.</p>
+      </div>
+      <div class="svc reveal up">
+        <span class="svc-emoji">🏋️</span>
+        <h3>Ejercicios Terapéuticos</h3>
+        <p>Pautas específicas de cuádriceps, isquiotibiales, core y estabilizadores para complementar el tratamiento y evitar recaídas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="feed">
+  <div class="sec-inner" style="max-width:1200px;margin:0 auto;">
+    <div class="feed-top reveal up">
+      <div>
+        <span class="tag" style="color:var(--c)">Lo Último</span>
+        <h2 class="sec-title title-white">@quiroxpert en Instagram</h2>
+        <p class="sec-sub">Isquios, cuádriceps, ligamentos cruzados, charlas clínicas... Contenido real de un profesional que comparte lo que sabe.</p>
+      </div>
+      <a href="https://www.instagram.com/quiroxpert/" target="_blank" rel="noopener" class="btn-ig">
+        <i class="fab fa-instagram"></i> Ver Perfil Oficial
+      </a>
+    </div>
+
+    <div class="ig-grid" id="instagramGrid">
+      </div>
+  </div>
+</section>
+
+<section id="reviews" class="sec">
+  <div class="sec-inner">
+    <div class="rev-top reveal up">
+      <div>
+        <span class="tag">Opiniones</span>
+        <h2 class="sec-title">Lo que dicen los pacientes</h2>
+      </div>
+      <div class="google-box">
+        <div class="g-logo">
+          <span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+        </div>
+        <div class="g-divider"></div>
+        <div>
+          <div class="g-score">5.0</div>
+          <div class="g-stars">★★★★★</div>
+          <div class="g-count">Valoración en Google Maps</div>
+        </div>
+      </div>
+    </div>
+    <div class="revs">
+      <div class="rev reveal up">
+        <div class="rev-head">
+          <div class="rev-av" style="background:linear-gradient(135deg,#00BCD4,#0097A7)">M</div>
+          <div>
+            <div class="rev-name">María García</div>
+            <div class="rev-when">Hace 2 semanas · Google</div>
+          </div>
+        </div>
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">Alberto es un profesional increíble. Llevaba meses con dolor de espalda que me impedía trabajar y en dos sesiones noté un cambio brutal. Muy atento, explica todo lo que hace y el trato es excelente. 100% recomendable.</p>
+      </div>
+      <div class="rev reveal up">
+        <div class="rev-head">
+          <div class="rev-av" style="background:linear-gradient(135deg,#006B7A,#004D58)">J</div>
+          <div>
+            <div class="rev-name">José Ramírez</div>
+            <div class="rev-when">Hace 1 mes · Google</div>
+          </div>
+        </div>
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">Fui con una contractura horrible en el cuello y en las trampas. Salí como nuevo. Muy buenas manos, te explica qué es lo que está pasando y por qué. Si estás en Aspe o los alrededores, no lo dudes.</p>
+      </div>
+      <div class="rev reveal up">
+        <div class="rev-head">
+          <div class="rev-av" style="background:linear-gradient(135deg,#0097A7,#006B7A)">A</div>
+          <div>
+            <div class="rev-name">Ana Pérez</div>
+            <div class="rev-when">Hace 3 semanas · Google</div>
+          </div>
+        </div>
+        <div class="rev-stars">★★★★★</div>
+        <p class="rev-text">Tenía una tendinitis en el pie que me impedía correr. Con su protocolo de masaje deportivo y los ejercicios que me pautó, volví a entrenar en tiempo récord. Entiende el cuerpo del deportista como pocos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="sec">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:64px;" class="reveal up">
+      <span class="tag">Encuéntranos</span>
+      <h2 class="sec-title">Ven a vernos</h2>
+      <p class="sec-sub" style="margin:0 auto;">En Aspe, a tu disposición. Con cita previa para no hacerte esperar.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="ci reveal left">
+          <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="ci-label">Dirección</div>
+            <div class="ci-val">Avd. Pintor Pastor Calpena, 9, Local 1<br>03680 Aspe, Alicante</div>
+          </div>
+        </div>
+        <div class="ci reveal left">
+          <div class="ci-icon"><i class="fas fa-phone-alt"></i></div>
+          <div>
+            <div class="ci-label">Teléfono</div>
+            <div class="ci-val"><a href="tel:+34642493739">+34 642 49 37 39</a></div>
+          </div>
+        </div>
+        <div class="ci reveal left">
+          <div class="far fa-clock ci-icon" style="display:flex; align-items:center; justify-content:center;"></div>
+          <div>
+            <div class="ci-label">Horario</div>
+            <div class="ci-val">Lunes – Viernes: 9:00 – 20:00<br>Sábados: Consultar disponibilidad</div>
+          </div>
+        </div>
+        <div class="ci reveal left">
+          <div class="fab fa-instagram ci-icon" style="display:flex; align-items:center; justify-content:center;"></div>
+          <div>
+            <div class="ci-label">Instagram</div>
+            <div class="ci-val"><a href="https://www.instagram.com/quiroxpert/" target="_blank" style="color:var(--c)">@quiroxpert</a></div>
+          </div>
+        </div>
+        <a href="https://calendly.com/quiroxpert" target="_blank" rel="noopener" class="btn-fill reveal left" style="width:fit-content;margin-top:10px;">
+          <i class="far fa-calendar-check"></i> Reservar Cita Online
+        </a>
+      </div>
+      <div class="reveal right">
+        <div class="map-box">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.5!2d-0.76870!3d38.34740!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd62b6d02b747f9%3A0xefc6e061b368def1!2sQuiroXPert!5e0!3m2!1ses!2ses!4v1716000000000!5m2!1ses!2ses"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <img src="LOGO.png" alt="QuiroXpert Alberto Serrano">
+      <p>Osteopatía y Quiromasaje profesional en Aspe, Alicante. Tratamos el origen, no el síntoma.</p>
+      <div class="socials">
+        <a href="https://www.instagram.com/quiroxpert/" target="_blank" class="soc"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/34642493739" target="_blank" class="soc"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+34642493739" class="soc"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="foot-col">
+      <h5>Tratamientos</h5>
+      <ul>
+        <li><a href="#servicios">Osteopatía Estructural</a></li>
+        <li><a href="#servicios">Masaje Deportivo</a></li>
+        <li><a href="#servicios">Quiromasaje Terapéutico</a></li>
+        <li><a href="#servicios">Vendaje Neuromuscular</a></li>
+        <li><a href="#servicios">Osteopatía Visceral</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="tel:+34642493739">+34 642 49 37 39</a></li>
+        <li><a href="#contacto">Aspe, Alicante</a></li>
+        <li><a href="https://calendly.com/quiroxpert" target="_blank">Reservar Cita</a></li>
+        <li><a href="https://www.instagram.com/quiroxpert/" target="_blank">@quiroxpert</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>© 2026 QuiroXpert · Alberto Serrano · Todos los derechos reservados.</p>
+    <p>Hecho con ❤️ en Aspe</p>
+  </div>
+</footer>
+
+<div class="wa-ring"></div>
+<a href="https://wa.me/34642493739" class="wa" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+// ── Burger Menu
+document.getElementById('burgerBtn').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// ── Nav solid on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('solid', window.scrollY > 60);
+}, {passive: true});
+
+// ── Reveal on scroll
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (Math.floor(i % 3) * 0.1) + 's';
+  revealObs.observe(el);
+});
+
+// ── Smooth close nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ── Render de tu muro real combinando tu imagen fija y el vídeo local
+const grid = document.getElementById('instagramGrid');
+const posts = [
+  { type: 'video', src: 'AQOblTOohkDHujCGT5HKz-Pdaeo_s3MR7SPBEo1_uOm83FIdutkLClSksrYYVjdUKg-fKdK20rlHNegd1FEe7AybjZxrW9fhI-mbm4k.mp4', likes: '342', comments: '28' },
+  { type: 'image', src: '629363501_18101485462858521_2393258055739503262_n.jpg', likes: '194', comments: '12' },
+  { type: 'video', src: 'AQOblTOohkDHujCGT5HKz-Pdaeo_s3MR7SPBEo1_uOm83FIdutkLClSksrYYVjdUKg-fKdK20rlHNegd1FEe7AybjZxrW9fhI-mbm4k.mp4', likes: '421', comments: '39' },
+  { type: 'image', src: '629363501_18101485462858521_2393258055739503262_n.jpg', likes: '289', comments: '16' },
+  { type: 'video', src: 'AQOblTOohkDHujCGT5HKz-Pdaeo_s3MR7SPBEo1_uOm83FIdutkLClSksrYYVjdUKg-fKdK20rlHNegd1FEe7AybjZxrW9fhI-mbm4k.mp4', likes: '210', comments: '22' },
+  { type: 'image', src: '629363501_18101485462858521_2393258055739503262_n.jpg', likes: '512', comments: '45' }
+];
+
+posts.forEach(p => {
+  let mediaHtml = p.type === 'video'
+    ? `<video autoplay muted loop playsinline><source src="${p.src}" type="video/mp4"></video>`
+    : `<img src="${p.src}" alt="QuiroXpert Post">`;
+
+  grid.innerHTML += `
+    <div class="ig-item reveal up" onclick="window.open('https://www.instagram.com/quiroxpert/', '_blank')">
+      ${mediaHtml}
+      <div class="ig-ov">
+        <i class="fab fa-instagram"></i>
+        <div class="ig-stats">
+          <span><i class="fas fa-heart"></i> ${p.likes}</span>
+          <span><i class="fas fa-comment"></i> ${p.comments}</span>
+        </div>
+      </div>
+    </div>
+  `;
+});
+</script>
+</body>
+</html>
