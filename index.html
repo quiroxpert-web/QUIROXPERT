@@ -224,6 +224,10 @@ body{font-family:'Outfit',sans-serif;color:var(--text);overflow-x:hidden;backgro
 .ig-item:hover .ig-ov{opacity:1;}
 .ig-ov i{font-size:32px;}
 .ig-stats{display:flex;gap:15px;font-size:14px;font-weight:600;}
+.elfsight-instagram-wrap{
+  width:100%;
+  min-height:320px;
+}
 
 /* ─── RESEÑAS DE GOOGLE MAPS REALES ── */
 #reviews{background:#fff;}
@@ -537,8 +541,11 @@ footer{background:var(--dark);padding:70px 6% 30px;}
       </a>
     </div>
 
-    <div class="ig-grid" id="instagramGrid">
-      </div>
+    <div class="elfsight-instagram-wrap">
+      <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+      <div class="elfsight-app-8d5ce466-98d2-417c-b249-26705cdecd66" data-elfsight-app-lazy></div>
+    </div>
   </div>
 </section>
 
@@ -726,44 +733,6 @@ document.querySelectorAll('.nav-links a').forEach(a => {
     document.getElementById('navLinks').classList.remove('open');
   });
 });
-
-// ── Redes sociales: muestra siempre 3 publicaciones.
-// Para que sean las 3 últimas reales de Instagram hace falta conectar un endpoint propio
-// que devuelva los últimos posts de la cuenta. La web ya está preparada para leerlo desde:
-// /api/instagram-latest.json
-const grid = document.getElementById('instagramGrid');
-
-function renderInstagramPosts(posts) {
-  grid.innerHTML = '';
-  posts.slice(0, 3).forEach(p => {
-    const mediaHtml = p.type === 'video'
-      ? `<video autoplay muted loop playsinline><source src="${p.src}" type="video/mp4"></video>`
-      : `<img src="${p.src}" alt="${p.alt || 'Publicación de QuiroXpert'}">`;
-
-    grid.innerHTML += `
-      <div class="ig-item reveal up" onclick="window.open('${p.url || 'https://www.instagram.com/quiroxpert/'}', '_blank')">
-        ${mediaHtml}
-        <div class="ig-ov">
-          <i class="fab fa-instagram"></i>
-          <div class="ig-stats">
-            <span>${p.caption || 'Ver publicación'}</span>
-          </div>
-        </div>
-      </div>
-    `;
-  });
-}
-
-const fallbackPosts = [
-  { type: 'video', src: 'VIDEO.mp4', caption: 'Último contenido', url: 'https://www.instagram.com/quiroxpert/' },
-  { type: 'image', src: 'LOGO.png', caption: 'QuiroXpert', url: 'https://www.instagram.com/quiroxpert/' },
-  { type: 'video', src: 'VIDEO.mp4', caption: 'Redes sociales', url: 'https://www.instagram.com/quiroxpert/' }
-];
-
-fetch('/api/instagram-latest.json', { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : Promise.reject())
-  .then(data => renderInstagramPosts(Array.isArray(data) ? data : data.posts || []))
-  .catch(() => renderInstagramPosts(fallbackPosts));
 
 // ── Reseñas: se muestran 3. Para que sean las 3 últimas reales de Google,
 // conecta /api/google-reviews-latest.json con Google Business Profile API.
